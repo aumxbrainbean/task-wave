@@ -670,30 +670,30 @@ export default function DashboardPage() {
       {/* Main Content - Fixed height container */}
       <main className="flex-1 flex flex-col h-screen w-full overflow-hidden">
         {/* Compact Header */}
-        <header className="glass border-b border-gray-200/50 px-6 py-3 flex items-center justify-between shadow-sm flex-shrink-0 z-30 backdrop-blur-xl">
+        <header className="glass border-b border-gray-200 dark:border-gray-700 px-6 py-3 flex items-center justify-between shadow-sm flex-shrink-0 z-30 backdrop-blur-xl bg-white/80 dark:bg-gray-800/80">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
               <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-purple-400 to-purple-500 flex items-center justify-center shadow-md">
                 <LayoutGrid className="h-5 w-5 text-white" strokeWidth={2.5} />
               </div>
               <div>
-                <h1 className="text-lg font-bold bg-gradient-to-r from-purple-600 to-purple-400 bg-clip-text text-transparent">
+                <h1 className="text-lg font-bold bg-gradient-to-r from-purple-600 to-purple-400 dark:from-purple-400 dark:to-purple-300 bg-clip-text text-transparent">
                   Task Dashboard
                 </h1>
-                <p className="text-[10px] text-gray-500 font-medium uppercase tracking-wide\">Workspace Management</p>
+                <p className="text-[10px] text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wide">Workspace Management</p>
               </div>
             </div>
           </div>
           <div className="flex items-center gap-3">
             {autoSaving && (
               <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-700/30 shadow-sm animate-fade-in">
-                <Loader2 className="h-3.5 w-3.5 animate-spin text-purple-500\" />
+                <Loader2 className="h-3.5 w-3.5 animate-spin text-purple-500 dark:text-purple-400" />
                 <span className="text-xs font-semibold text-purple-600 dark:text-purple-400">Saving...</span>
               </div>
             )}
             {lastSaved && !autoSaving && (
               <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-700/30 shadow-sm animate-fade-in">
-                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 dark:text-emerald-400" />
                 <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">Saved</span>
               </div>
             )}
