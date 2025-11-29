@@ -419,17 +419,21 @@ export default function DashboardPage() {
           value={row.original.priority || ''}
           onValueChange={(value) => handleCellUpdate(row.original.id, 'priority', value)}
         >
-          <SelectTrigger className="border-0 bg-transparent" data-testid={`priority-${row.original.id}`}>
-            {row.original.priority ? (
-              <Badge className={cn('text-xs', getPriorityColor(row.original.priority))}>{row.original.priority}</Badge>
-            ) : (
-              <SelectValue placeholder="Select" />
-            )}
+          <SelectTrigger className="border-0 bg-transparent h-8 text-xs" data-testid={`priority-${row.original.id}`}>
+            <SelectValue placeholder="Set priority">
+              {row.original.priority && (
+                <span className={cn('px-2 py-0.5 rounded-md text-xs font-semibold', getPriorityColor(row.original.priority))}>
+                  {row.original.priority}
+                </span>
+              )}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
             {PRIORITY_OPTIONS.map(p => (
               <SelectItem key={p} value={p}>
-                <Badge className={cn('text-xs', getPriorityColor(p))}>{p}</Badge>
+                <span className={cn('px-2 py-0.5 rounded-md text-xs font-semibold', getPriorityColor(p))}>
+                  {p}
+                </span>
               </SelectItem>
             ))}
           </SelectContent>
