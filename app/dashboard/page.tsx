@@ -72,22 +72,22 @@ const formatDateForDB = (date: Date | undefined): string | undefined => {
 
 const getStatusColor = (status: TaskStatus) => {
   switch (status) {
-    case 'Yet To Start': return 'bg-purple-50/40 dark:bg-purple-950/20 border-l-4 border-purple-300'
-    case 'In Progress': return 'bg-sky-50/40 dark:bg-sky-950/20 border-l-4 border-sky-300'
-    case 'On Hold': return 'bg-amber-50/40 dark:bg-amber-950/20 border-l-4 border-amber-300'
-    case 'Client Review Pending': return 'bg-cyan-50/40 dark:bg-cyan-950/20 border-l-4 border-cyan-300'
-    case 'Completed': return 'bg-emerald-50/40 dark:bg-emerald-950/20 border-l-4 border-emerald-300'
-    default: return 'bg-white dark:bg-gray-950'
+    case 'Yet To Start': return 'bg-purple-50/40 dark:bg-purple-950/30 border-l-4 border-purple-300 dark:border-purple-600'
+    case 'In Progress': return 'bg-sky-50/40 dark:bg-sky-950/30 border-l-4 border-sky-300 dark:border-sky-600'
+    case 'On Hold': return 'bg-amber-50/40 dark:bg-amber-950/30 border-l-4 border-amber-300 dark:border-amber-600'
+    case 'Client Review Pending': return 'bg-cyan-50/40 dark:bg-cyan-950/30 border-l-4 border-cyan-300 dark:border-cyan-600'
+    case 'Completed': return 'bg-emerald-50/40 dark:bg-emerald-950/30 border-l-4 border-emerald-300 dark:border-emerald-600'
+    default: return 'bg-white dark:bg-gray-800'
   }
 }
 
 const getPriorityColor = (priority: Priority | null) => {
   switch (priority) {
-    case 'Critical': return 'status-badge bg-red-100 text-red-700 border border-red-200'
-    case 'High': return 'status-badge bg-orange-100 text-orange-700 border border-orange-200'
-    case 'Medium': return 'status-badge bg-yellow-100 text-yellow-700 border border-yellow-200'
-    case 'Low': return 'status-badge bg-emerald-100 text-emerald-700 border border-emerald-200'
-    default: return 'status-badge bg-gray-100 text-gray-700 border border-gray-200'
+    case 'Critical': return 'status-badge bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-700/50'
+    case 'High': return 'status-badge bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-700/50'
+    case 'Medium': return 'status-badge bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 border border-yellow-200 dark:border-yellow-700/50'
+    case 'Low': return 'status-badge bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700/50'
+    default: return 'status-badge bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600'
   }
 }
 
