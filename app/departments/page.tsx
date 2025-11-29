@@ -369,28 +369,37 @@ export default function DepartmentsPage() {
             </CardContent>
           </Card>
         ) : (
-          <div className="grid gap-4">
+          <div className="grid gap-3">
             {loading ? (
-              <div className="flex items-center justify-center py-12">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              <div className="flex flex-col items-center justify-center py-16 space-y-3">
+                <div className="h-14 w-14 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-500 flex items-center justify-center shadow-lg">
+                  <Loader2 className="h-7 w-7 animate-spin text-white" strokeWidth={2.5} />
+                </div>
+                <p className="text-sm font-semibold text-gray-600 dark:text-gray-400">Loading departments...</p>
               </div>
             ) : (
-              departments.map(department => (
-                <Card key={department.id}>
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <CardTitle>{department.name}</CardTitle>
-                        <CardDescription>{department.description || 'No description'}</CardDescription>
+              departments.map((department, index) => (
+                <Card key={department.id} className="border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all duration-200 bg-white dark:bg-gray-800 animate-fade-in" style={{animationDelay: `${index * 50}ms`}}>
+                  <CardHeader className="p-4">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-emerald-100 to-emerald-200 dark:from-emerald-900/30 dark:to-emerald-800/30 flex items-center justify-center flex-shrink-0">
+                            <Building2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" strokeWidth={2} />
+                          </div>
+                          <CardTitle className="text-base font-bold text-gray-900 dark:text-white truncate">{department.name}</CardTitle>
+                        </div>
+                        <CardDescription className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2">{department.description || 'No description'}</CardDescription>
                       </div>
-                      <div className="flex gap-2">
+                      <div className="flex gap-1.5 flex-shrink-0">
                         <Button
                           variant="outline"
                           size="sm"
                           onClick={() => handleViewMembers(department)}
+                          className="h-8 px-3 text-xs border-gray-300 dark:border-gray-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:border-emerald-300"
                         >
-                          <Users className="mr-2 h-4 w-4" />
-                          Team Members
+                          <Users className="mr-1.5 h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" strokeWidth={2} />
+                          <span className="hidden sm:inline">Members</span>
                         </Button>
                         {canManage && (
                           <>
@@ -398,16 +407,18 @@ export default function DepartmentsPage() {
                               variant="ghost"
                               size="icon"
                               onClick={() => handleEdit(department)}
+                              className="h-8 w-8 hover:bg-purple-50 dark:hover:bg-purple-900/20"
                             >
-                              <Pencil className="h-4 w-4" />
+                              <Pencil className="h-3.5 w-3.5 text-purple-600 dark:text-purple-400" strokeWidth={2} />
                             </Button>
                             {canDelete && (
                               <Button
                                 variant="ghost"
                                 size="icon"
                                 onClick={() => handleDelete(department.id)}
+                                className="h-8 w-8 hover:bg-red-50 dark:hover:bg-red-900/20"
                               >
-                                <Trash2 className="h-4 w-4 text-destructive" />
+                                <Trash2 className="h-3.5 w-3.5 text-red-600 dark:text-red-400" strokeWidth={2} />
                               </Button>
                             )}
                           </>
