@@ -845,17 +845,18 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* Project Tabs - Sticky at Bottom (like Excel) */}
+        {/* Modern Project Tabs */}
         {projects.length > 0 && (
-          <div className="glass border-t border-border/50 p-3 overflow-x-auto thin-scrollbar shadow-lg flex-shrink-0 z-20">
+          <div className="glass border-t-2 border-white/50 px-8 py-4 overflow-x-auto backdrop-blur-2xl shadow-2xl flex-shrink-0 z-20">
             <Tabs value={selectedProjectId || ''} onValueChange={setSelectedProjectId}>
-              <TabsList className="h-auto inline-flex bg-muted/50 p-1 rounded-lg">
-                {projects.map(project => (
+              <TabsList className="h-auto inline-flex bg-gradient-to-r from-purple-50 to-purple-100/50 p-2 rounded-2xl shadow-inner border-2 border-white/80">
+                {projects.map((project, index) => (
                   <TabsTrigger 
                     key={project.id} 
                     value={project.id} 
-                    className="px-5 py-2.5 rounded-md data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-purple-600 data-[state=active]:text-white data-[state=active]:shadow-md transition-all font-medium text-sm"
+                    className="px-6 py-3 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:via-purple-600 data-[state=active]:to-purple-700 data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:scale-105 transition-all font-bold text-sm hover:bg-white/50 animate-slide-in"
                     data-testid={`project-tab-${project.id}`}
+                    style={{animationDelay: `${index * 50}ms`}}
                   >
                     {project.name}
                   </TabsTrigger>
