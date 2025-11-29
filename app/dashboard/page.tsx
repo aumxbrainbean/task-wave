@@ -682,41 +682,20 @@ export default function DashboardPage() {
                 </h1>
                 <p className=\"text-sm text-gray-600 font-medium\">Manage your workspace efficiently</p>\n              </div>\n            </div>\n          </div>\n          <div className=\"flex items-center gap-4\">\n            {autoSaving && (\n              <div className=\"flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-100 to-purple-50 dark:from-purple-900/30 dark:to-purple-800/20 border-2 border-purple-200 dark:border-purple-700/30 shadow-lg animate-fade-in\">\n                <Loader2 className=\"h-4 w-4 animate-spin text-purple-600\" />\n                <span className=\"text-sm font-bold text-purple-700 dark:text-purple-300\">Auto-saving...</span>\n              </div>\n            )}\n            {lastSaved && !autoSaving && (\n              <div className=\"flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-100 to-emerald-50 dark:from-emerald-900/30 dark:to-emerald-800/20 border-2 border-emerald-200 dark:border-emerald-700/30 shadow-lg animate-fade-in\">\n                <CheckCircle2 className=\"h-4 w-4 text-emerald-600\" />\n                <span className=\"text-sm font-bold text-emerald-700 dark:text-emerald-300\">All changes saved</span>\n              </div>\n            )}\n          </div>\n        </header>
 
-        {/* Filters - Sticky below header */}
-        <div className="glass border-b border-border/50 flex-shrink-0 z-20">
-          <div className="p-4">
-            <div className="flex items-center justify-between mb-3">
+        {/* Modern Toolbar */}
+        <div className="glass border-b border-white/50 flex-shrink-0 z-20 backdrop-blur-2xl shadow-lg">
+          <div className="px-8 py-5">
+            <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
                 <Button
                   variant="outline"
-                  size="sm"
+                  size="default"
                   onClick={() => setShowFilters(!showFilters)}
-                  className="gap-2 hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:text-purple-600 hover:border-purple-300 transition-colors rounded-lg"
+                  className="gap-2 h-11 px-5 rounded-xl border-2 hover:border-purple-300 bg-white/70 hover:bg-purple-50 transition-all font-semibold btn-scale shadow-sm"
                   data-testid="toggle-filters"
                 >
-                  <Filter className="h-4 w-4 icon-lavender" />
-                  {showFilters ? 'Hide Filters' : 'Show Filters'}
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleExportToExcel}
-                  className="gap-2 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:text-emerald-600 hover:border-emerald-300 transition-colors rounded-lg"
-                  data-testid="export-excel-btn"
-                >
-                  <Download className="h-4 w-4 icon-mint" />
-                  Export to Excel
-                </Button>
-              </div>
-              <Button 
-                onClick={handleAddTask} 
-                className="gap-2 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white shadow-md hover:shadow-lg transition-all rounded-lg font-medium" 
-                data-testid="add-task-btn"
-              >
-                <Plus className="h-4 w-4" />
-                Add Task
-              </Button>
-            </div>
+                  <SlidersHorizontal className="h-5 w-5 text-purple-600" strokeWidth={2.5} />
+                  <span className="text-gray-900\">{showFilters ? 'Hide Filters' : 'Show Filters'}</span>\n                </Button>\n                <Button\n                  variant=\"outline\"\n                  size=\"default\"\n                  onClick={handleExportToExcel}\n                  className=\"gap-2 h-11 px-5 rounded-xl border-2 hover:border-emerald-300 bg-white/70 hover:bg-emerald-50 transition-all font-semibold btn-scale shadow-sm\"\n                  data-testid=\"export-excel-btn\"\n                >\n                  <Download className=\"h-5 w-5 text-emerald-600\" strokeWidth={2.5} />\n                  <span className=\"text-gray-900\">Export</span>\n                </Button>\n              </div>\n              <Button \n                onClick={handleAddTask} \n                className=\"gap-2 h-12 px-6 modern-button bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:from-purple-600 hover:via-purple-700 hover:to-purple-800 text-white shadow-xl hover:shadow-2xl font-bold text-base\" \n                data-testid=\"add-task-btn\"\n              >\n                <Plus className=\"h-5 w-5\" strokeWidth={3} />\n                <span>New Task</span>\n                <Sparkles className=\"h-4 w-4 ml-1\" />\n              </Button>\n            </div>
 
             {showFilters && (
               <div className="flex items-center gap-3 flex-wrap animate-fade-in">
