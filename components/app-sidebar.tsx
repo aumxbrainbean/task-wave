@@ -13,7 +13,9 @@ import {
   ChevronLeft,
   ChevronRight,
   Waves,
-  Sparkles
+  Sparkles,
+  Sun,
+  Moon
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ThemeToggle } from '@/components/theme-toggle'
@@ -35,29 +37,37 @@ export function AppSidebar() {
       icon: LayoutDashboard, 
       label: 'Dashboard', 
       href: '/dashboard',
-      color: 'icon-lavender',
-      gradient: 'from-purple-400 to-purple-500'
+      gradient: 'from-purple-500 to-purple-600',
+      iconColor: 'text-purple-600',
+      bgHover: 'hover:bg-purple-50 dark:hover:bg-purple-900/20',
+      activeBg: 'bg-gradient-to-r from-purple-500 to-purple-600'
     },
     { 
       icon: FolderKanban, 
       label: 'Projects', 
       href: '/projects',
-      color: 'icon-sky',
-      gradient: 'from-sky-400 to-blue-500'
+      gradient: 'from-sky-500 to-blue-600',
+      iconColor: 'text-sky-600',
+      bgHover: 'hover:bg-sky-50 dark:hover:bg-sky-900/20',
+      activeBg: 'bg-gradient-to-r from-sky-500 to-blue-600'
     },
     { 
       icon: Building2, 
       label: 'Departments', 
       href: '/departments',
-      color: 'icon-mint',
-      gradient: 'from-emerald-400 to-teal-500'
+      gradient: 'from-emerald-500 to-teal-600',
+      iconColor: 'text-emerald-600',
+      bgHover: 'hover:bg-emerald-50 dark:hover:bg-emerald-900/20',
+      activeBg: 'bg-gradient-to-r from-emerald-500 to-teal-600'
     },
     { 
       icon: Users2, 
       label: 'Users', 
       href: '/users',
-      color: 'icon-coral',
-      gradient: 'from-orange-400 to-pink-500'
+      gradient: 'from-orange-500 to-pink-600',
+      iconColor: 'text-orange-600',
+      bgHover: 'hover:bg-orange-50 dark:hover:bg-orange-900/20',
+      activeBg: 'bg-gradient-to-r from-orange-500 to-pink-600'
     },
   ]
 
@@ -66,18 +76,19 @@ export function AppSidebar() {
       icon: SettingsIcon, 
       label: 'Settings', 
       href: '/settings',
-      color: 'icon-yellow',
-      gradient: 'from-yellow-400 to-amber-500'
+      gradient: 'from-amber-500 to-yellow-600',
+      iconColor: 'text-amber-600',
+      bgHover: 'hover:bg-amber-50 dark:hover:bg-amber-900/20',
+      activeBg: 'bg-gradient-to-r from-amber-500 to-yellow-600'
     })
   }
 
   return (
     <aside
       className={cn(
-        'h-screen bg-gradient-to-b from-sidebar via-sidebar/98 to-sidebar/95',
-        'border-r border-sidebar-border flex flex-col transition-all duration-300 relative flex-shrink-0',
-        'shadow-lg',
-        isCollapsed ? 'w-16' : 'w-64'
+        'h-screen bg-white dark:bg-gray-900 border-r-2 border-gray-100 dark:border-gray-800',
+        'flex flex-col transition-all duration-300 relative flex-shrink-0 shadow-2xl',
+        isCollapsed ? 'w-20' : 'w-72'
       )}
     >
       {/* Toggle Button */}
@@ -86,43 +97,43 @@ export function AppSidebar() {
         size="icon"
         onClick={toggleSidebar}
         className={cn(
-          "absolute -right-3 top-8 h-7 w-7 rounded-full border-2 bg-card shadow-lg z-10",
-          "hover:bg-accent hover:scale-110 transition-all duration-200",
-          "border-border"
+          "absolute -right-4 top-10 h-8 w-8 rounded-full border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-xl z-50",
+          "hover:scale-110 hover:shadow-2xl transition-all duration-200",
+          "hover:border-purple-300 dark:hover:border-purple-600"
         )}
       >
         {isCollapsed ? 
-          <ChevronRight className="h-4 w-4 text-primary" /> : 
-          <ChevronLeft className="h-4 w-4 text-primary" />
+          <ChevronRight className="h-4 w-4 text-purple-600" strokeWidth={3} /> : 
+          <ChevronLeft className="h-4 w-4 text-purple-600" strokeWidth={3} />
         }
       </Button>
 
-      {/* Header */}
+      {/* Modern Header */}
       <div className={cn(
-        "p-6 border-b border-sidebar-border/50 flex items-center",
+        "p-6 border-b-2 border-gray-100 dark:border-gray-800 flex items-center",
         isCollapsed ? "justify-center px-3" : "gap-3"
       )}>
         <div className="relative">
-          <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-purple-400 via-purple-500 to-purple-600 flex items-center justify-center shadow-lg flex-shrink-0">
-            <Waves className="w-6 h-6 text-white" strokeWidth={2.5} />
+          <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700 flex items-center justify-center shadow-xl">
+            <Waves className="w-7 h-7 text-white" strokeWidth={2.5} />
           </div>
-          <div className="absolute -top-1 -right-1 h-4 w-4 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center">
-            <Sparkles className="w-2.5 h-2.5 text-white" strokeWidth={3} />
+          <div className="absolute -top-1 -right-1 h-5 w-5 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-full flex items-center justify-center shadow-lg animate-pulse">
+            <Sparkles className="w-3 h-3 text-white" strokeWidth={3} />
           </div>
         </div>
         {!isCollapsed && (
           <div className="flex flex-col animate-fade-in">
-            <h2 className="font-bold text-lg text-sidebar-foreground tracking-tight">
+            <h2 className="text-xl font-black bg-gradient-to-r from-purple-600 to-purple-400 bg-clip-text text-transparent">
               Task Wave
             </h2>
-            <p className="text-xs text-sidebar-foreground/60 font-medium">Project Management</p>
+            <p className="text-xs text-gray-600 dark:text-gray-400 font-bold tracking-wide">WORKSPACE</p>
           </div>
         )}
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 p-3 space-y-1.5 overflow-y-auto thin-scrollbar">
-        {navItems.map((item) => {
+      {/* Modern Navigation */}
+      <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+        {navItems.map((item, index) => {
           const Icon = item.icon
           const isActive = pathname === item.href
           return (
@@ -130,14 +141,16 @@ export function AppSidebar() {
               key={item.href}
               variant="ghost"
               className={cn(
-                'w-full transition-all duration-200 group',
-                isCollapsed ? 'justify-center px-2 h-12' : 'justify-start h-11',
+                'w-full transition-all duration-200 group animate-slide-in',
+                isCollapsed ? 'justify-center px-0 h-14' : 'justify-start h-14 px-4',
                 isActive
-                  ? 'bg-sidebar-accent text-sidebar-accent-foreground shadow-sm font-medium'
-                  : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground'
+                  ? `${item.activeBg} text-white shadow-xl hover:shadow-2xl font-bold scale-105`
+                  : `text-gray-700 dark:text-gray-300 ${item.bgHover} hover:scale-105 font-semibold border-2 border-transparent hover:border-gray-200 dark:hover:border-gray-700`,
+                'rounded-2xl'
               )}
               onClick={() => router.push(item.href)}
               title={isCollapsed ? item.label : undefined}
+              style={{animationDelay: `${index * 50}ms`}}
             >
               <div className={cn(
                 "flex items-center",
@@ -145,21 +158,19 @@ export function AppSidebar() {
               )}>
                 <div className={cn(
                   "flex items-center justify-center",
-                  isActive ? 'scale-110' : 'scale-100',
-                  'transition-transform duration-200'
+                  !isCollapsed && "mr-3"
                 )}>
                   <Icon 
                     className={cn(
-                      "h-5 w-5",
-                      !isCollapsed && "mr-3",
-                      isActive ? item.color : 'text-sidebar-foreground/60',
-                      'transition-colors duration-200'
+                      "h-6 w-6 transition-all duration-200",
+                      isActive ? 'text-white scale-110' : item.iconColor,
+                      'group-hover:scale-110'
                     )} 
-                    strokeWidth={isActive ? 2.5 : 2}
+                    strokeWidth={isActive ? 3 : 2.5}
                   />
                 </div>
                 {!isCollapsed && (
-                  <span className="font-medium text-sm">{item.label}</span>
+                  <span className="text-base">{item.label}</span>
                 )}
               </div>
             </Button>
@@ -167,47 +178,45 @@ export function AppSidebar() {
         })}
       </nav>
 
-      {/* Footer */}
+      {/* Modern Footer */}
       <div className={cn(
-        "p-3 border-t border-sidebar-border/50",
-        isCollapsed ? "space-y-2" : "space-y-3"
+        "p-4 border-t-2 border-gray-100 dark:border-gray-800 space-y-3"
       )}>
         {user && !isCollapsed && (
-          <div className="mx-1 px-3 py-2.5 rounded-lg bg-gradient-to-br from-purple-50 to-purple-100/50 dark:from-purple-900/20 dark:to-purple-800/10 border border-purple-200/50 dark:border-purple-700/30 animate-fade-in">
-            <p className="font-semibold text-sm text-sidebar-foreground truncate">
-              {user.full_name || user.email}
-            </p>
-            <p className="text-xs text-sidebar-foreground/60 capitalize mt-0.5 font-medium">
-              {user.role.replace('_', ' ')}
-            </p>
+          <div className="mx-2 p-4 rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100/50 dark:from-purple-900/20 dark:to-purple-800/10 border-2 border-purple-200/50 dark:border-purple-700/30 animate-fade-in shadow-lg">
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-md">
+                <span className="text-white font-black text-sm">{user.full_name?.[0] || user.email[0]}</span>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-bold text-sm text-gray-900 dark:text-white truncate">
+                  {user.full_name || user.email}
+                </p>
+                <p className="text-xs text-purple-600 dark:text-purple-400 capitalize font-bold">
+                  {user.role.replace('_', ' ')}
+                </p>
+              </div>
+            </div>
           </div>
         )}
         <div className={cn(
-          "flex",
-          isCollapsed ? "flex-col gap-2 items-center" : "gap-2"
+          "flex gap-2",
+          isCollapsed && "flex-col items-center"
         )}>
           <ThemeToggle />
-          {isCollapsed ? (
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hover:bg-destructive/10 hover:text-destructive transition-colors"
-              onClick={handleLogout}
-              title="Sign Out"
-            >
-              <LogOut className="h-5 w-5" />
-            </Button>
-          ) : (
-            <Button
-              variant="outline"
-              size="sm"
-              className="flex-1 hover:bg-destructive/10 hover:text-destructive hover:border-destructive/30 transition-colors"
-              onClick={handleLogout}
-            >
-              <LogOut className="mr-2 h-4 w-4" />
-              <span className="font-medium">Sign Out</span>
-            </Button>
-          )}
+          <Button
+            variant="outline"
+            size={isCollapsed ? "icon" : "default"}
+            className={cn(
+              "border-2 hover:border-red-300 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all rounded-xl font-bold",
+              isCollapsed ? "w-full" : "flex-1"
+            )}
+            onClick={handleLogout}
+            title={isCollapsed ? "Sign Out" : undefined}
+          >
+            <LogOut className="h-5 w-5 text-red-600" strokeWidth={2.5} />
+            {!isCollapsed && <span className="ml-2 text-red-600">Sign Out</span>}
+          </Button>
         </div>
       </div>
     </aside>
