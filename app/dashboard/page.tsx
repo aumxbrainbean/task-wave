@@ -701,7 +701,7 @@ export default function DashboardPage() {
         </header>
 
         {/* Compact Toolbar */}
-        <div className="glass border-b border-gray-200/50 flex-shrink-0 z-20 backdrop-blur-xl shadow-sm">
+        <div className="glass border-b border-gray-200 dark:border-gray-700 flex-shrink-0 z-20 backdrop-blur-xl shadow-sm bg-white/80 dark:bg-gray-800/80">
           <div className="px-6 py-3">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
@@ -709,21 +709,21 @@ export default function DashboardPage() {
                   variant="outline"
                   size="sm"
                   onClick={() => setShowFilters(!showFilters)}
-                  className="gap-2 h-9 px-3 rounded-lg border hover:border-purple-300 bg-white hover:bg-purple-50 transition-all font-medium text-xs"
+                  className="gap-2 h-9 px-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:border-purple-300 dark:hover:border-purple-500 bg-white dark:bg-gray-800 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all font-medium text-xs"
                   data-testid="toggle-filters"
                 >
-                  <SlidersHorizontal className="h-4 w-4 text-purple-500" strokeWidth={2} />
-                  <span className="text-gray-700">{showFilters ? 'Hide Filters' : 'Filters'}</span>
+                  <SlidersHorizontal className="h-4 w-4 text-purple-500 dark:text-purple-400" strokeWidth={2} />
+                  <span className="text-gray-700 dark:text-gray-300">{showFilters ? 'Hide Filters' : 'Filters'}</span>
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={handleExportToExcel}
-                  className="gap-2 h-9 px-3 rounded-lg border hover:border-emerald-300 bg-white hover:bg-emerald-50 transition-all font-medium text-xs"
+                  className="gap-2 h-9 px-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:border-emerald-300 dark:hover:border-emerald-500 bg-white dark:bg-gray-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all font-medium text-xs"
                   data-testid="export-excel-btn"
                 >
-                  <Download className="h-4 w-4 text-emerald-500" strokeWidth={2} />
-                  <span className="text-gray-700">Export</span>
+                  <Download className="h-4 w-4 text-emerald-500 dark:text-emerald-400" strokeWidth={2} />
+                  <span className="text-gray-700 dark:text-gray-300">Export</span>
                 </Button>
               </div>
               <Button 
