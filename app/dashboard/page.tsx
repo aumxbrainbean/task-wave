@@ -775,26 +775,29 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Task Grid - Excel-style: Only rows scroll */}
-        <div className="flex-1 overflow-hidden p-6 min-h-0">
+        {/* Modern Task Table */}
+        <div className="flex-1 overflow-hidden px-8 py-6 min-h-0">
           {loading ? (
-            <div className="flex flex-col items-center justify-center h-full">
-              <Loader2 className="h-10 w-10 animate-spin text-primary mb-3" />
-              <p className="text-muted-foreground font-medium">Loading tasks...</p>
+            <div className="flex flex-col items-center justify-center h-full space-y-4 animate-fade-in">
+              <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-2xl">
+                <Loader2 className="h-10 w-10 animate-spin text-white" strokeWidth={3} />
+              </div>
+              <p className="text-lg font-bold text-gray-700">Loading your tasks...</p>
+              <p className="text-sm text-gray-500">Hang tight, we're getting everything ready</p>
             </div>
           ) : (
-            <div className="border-2 border-border/50 rounded-xl bg-card shadow-lg h-full flex flex-col overflow-hidden">
-              {/* Table Container - Excel style */}
-              <div className="flex-1 overflow-auto thin-scrollbar" data-testid="tasks-table">
+            <div className="modern-card border-2 border-white/80 shadow-2xl h-full flex flex-col overflow-hidden backdrop-blur-sm bg-white/90">
+              {/* Table Container */}
+              <div className="flex-1 overflow-auto" data-testid="tasks-table" style={{scrollbarGutter: 'stable'}}>
                 <table className="w-full border-collapse min-w-max">
-                  {/* Table Headers - Sticky at top of scroll area */}
-                  <thead className="bg-gradient-to-r from-purple-50/50 to-purple-100/30 dark:from-purple-900/20 dark:to-purple-800/10 sticky top-0 z-10 backdrop-blur-sm">
+                  {/* Modern Headers */}
+                  <thead className="sticky top-0 z-10 backdrop-blur-xl bg-gradient-to-r from-purple-100/90 via-purple-50/90 to-white/90 shadow-sm">
                     {table.getHeaderGroups().map(headerGroup => (
-                      <tr key={headerGroup.id}>
+                      <tr key={headerGroup.id} className="border-b-2 border-purple-200/60">
                         {headerGroup.headers.map(header => (
                           <th 
                             key={header.id} 
-                            className="p-3 text-left text-sm font-bold border-b-2 border-purple-200/50 dark:border-purple-700/30 text-foreground whitespace-nowrap"
+                            className="px-4 py-4 text-left text-xs font-black uppercase tracking-wider text-gray-900 whitespace-nowrap"
                             style={{ 
                               width: header.column.columnDef.size,
                               minWidth: header.column.columnDef.minSize,
@@ -807,21 +810,23 @@ export default function DashboardPage() {
                       </tr>
                     ))}
                   </thead>
-                  {/* Table Body - Scrollable rows */}
+                  {/* Modern Rows */}
                   <tbody>
-                    {table.getRowModel().rows.map(row => (
+                    {table.getRowModel().rows.map((row, index) => (
                       <tr 
                         key={row.id}
                         className={cn(
-                          'border-b border-border/30 hover:shadow-md hover:scale-[1.001] transition-all duration-200',
-                          getStatusColor(row.original.status)
+                          'group border-b border-gray-100 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 cursor-pointer',
+                          getStatusColor(row.original.status),
+                          'animate-fade-in'
                         )}
+                        style={{animationDelay: `${index * 30}ms`}}
                         data-testid={`task-row-${row.original.id}`}
                       >
                         {row.getVisibleCells().map(cell => (
                           <td 
                             key={cell.id} 
-                            className="p-2.5"
+                            className="px-4 py-4"
                             style={{ 
                               width: cell.column.columnDef.size,
                               minWidth: cell.column.columnDef.minSize,
