@@ -664,7 +664,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="h-screen flex bg-gradient-pastel overflow-hidden">
+    <div className="h-screen flex bg-gradient-to-br from-purple-50/50 via-white to-emerald-50/30 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 overflow-hidden">
       <AppSidebar />
 
       {/* Main Content - Fixed height container */}
