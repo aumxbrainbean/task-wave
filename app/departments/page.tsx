@@ -177,25 +177,36 @@ export default function DepartmentsPage() {
   const canDelete = true  // Both admin and PM can delete
 
   return (
-    <div className="h-screen flex bg-background">
+    <div className="h-screen flex bg-gradient-to-br from-purple-50/50 via-white to-emerald-50/30 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
       <AppSidebar />
-      <main className="flex-1 overflow-auto w-full p-8">
+      <main className="flex-1 overflow-auto w-full p-6">
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" onClick={() => router.push('/dashboard')}>
-              <ArrowLeft className="h-5 w-5" />
+        {/* Compact Header */}
+        <div className="flex items-center justify-between mb-6 animate-fade-in">
+          <div className="flex items-center gap-3">
+            <Button 
+              variant="outline" 
+              size="icon" 
+              onClick={() => router.push('/dashboard')}
+              className="h-9 w-9 rounded-lg border hover:border-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all"
+            >
+              <ArrowLeft className="h-4 w-4 text-emerald-600 dark:text-emerald-400" strokeWidth={2} />
             </Button>
-            <div>
-              <h1 className="text-3xl font-bold">Departments</h1>
-              <p className="text-muted-foreground">Manage departments and team members</p>
+            <div className="flex items-center gap-2.5">
+              <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-500 flex items-center justify-center shadow-md">
+                <Building2 className="h-5 w-5 text-white" strokeWidth={2.5} />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent dark:from-emerald-400 dark:to-emerald-300">Departments</h1>
+                <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">Manage departments and teams</p>
+              </div>
             </div>
           </div>
           {canManage && (
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
               <DialogTrigger asChild>
-                <Button>
-                  <Plus className="mr-2 h-4 w-4" />
+                <Button className="h-9 px-4 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-md hover:shadow-lg transition-all text-sm font-semibold rounded-lg">
+                  <Plus className="mr-1.5 h-4 w-4" strokeWidth={2.5} />
                   New Department
                 </Button>
               </DialogTrigger>
