@@ -680,7 +680,25 @@ export default function DashboardPage() {
                 <h1 className="text-2xl font-black bg-gradient-to-r from-purple-600 via-purple-500 to-emerald-500 bg-clip-text text-transparent">
                   Task Dashboard
                 </h1>
-                <p className=\"text-sm text-gray-600 font-medium\">Manage your workspace efficiently</p>\n              </div>\n            </div>\n          </div>\n          <div className=\"flex items-center gap-4\">\n            {autoSaving && (\n              <div className=\"flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-100 to-purple-50 dark:from-purple-900/30 dark:to-purple-800/20 border-2 border-purple-200 dark:border-purple-700/30 shadow-lg animate-fade-in\">\n                <Loader2 className=\"h-4 w-4 animate-spin text-purple-600\" />\n                <span className=\"text-sm font-bold text-purple-700 dark:text-purple-300\">Auto-saving...</span>\n              </div>\n            )}\n            {lastSaved && !autoSaving && (\n              <div className=\"flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-100 to-emerald-50 dark:from-emerald-900/30 dark:to-emerald-800/20 border-2 border-emerald-200 dark:border-emerald-700/30 shadow-lg animate-fade-in\">\n                <CheckCircle2 className=\"h-4 w-4 text-emerald-600\" />\n                <span className=\"text-sm font-bold text-emerald-700 dark:text-emerald-300\">All changes saved</span>\n              </div>\n            )}\n          </div>\n        </header>
+                <p className="text-sm text-gray-600 font-medium">Manage your workspace efficiently</p>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            {autoSaving && (
+              <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-100 to-purple-50 dark:from-purple-900/30 dark:to-purple-800/20 border-2 border-purple-200 dark:border-purple-700/30 shadow-lg animate-fade-in">
+                <Loader2 className="h-4 w-4 animate-spin text-purple-600" />
+                <span className="text-sm font-bold text-purple-700 dark:text-purple-300">Auto-saving...</span>
+              </div>
+            )}
+            {lastSaved && !autoSaving && (
+              <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-100 to-emerald-50 dark:from-emerald-900/30 dark:to-emerald-800/20 border-2 border-emerald-200 dark:border-emerald-700/30 shadow-lg animate-fade-in">
+                <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                <span className="text-sm font-bold text-emerald-700 dark:text-emerald-300">All changes saved</span>
+              </div>
+            )}
+          </div>
+        </header>
 
         {/* Modern Toolbar */}
         <div className="glass border-b border-white/50 flex-shrink-0 z-20 backdrop-blur-2xl shadow-lg">
