@@ -177,21 +177,21 @@ export function AppSidebar() {
         })}
       </nav>
 
-      {/* Modern Footer */}
+      {/* Compact Footer */}
       <div className={cn(
-        "p-4 border-t-2 border-gray-100 dark:border-gray-800 space-y-3"
+        "p-3 border-t border-gray-200 dark:border-gray-800 space-y-2"
       )}>
         {user && !isCollapsed && (
-          <div className="mx-2 p-4 rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100/50 dark:from-purple-900/20 dark:to-purple-800/10 border-2 border-purple-200/50 dark:border-purple-700/30 animate-fade-in shadow-lg">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-md">
-                <span className="text-white font-black text-sm">{user.full_name?.[0] || user.email[0]}</span>
+          <div className="mx-1 p-3 rounded-xl bg-gradient-to-br from-purple-50 to-purple-100/50 dark:from-purple-900/20 dark:to-purple-800/10 border border-purple-200/50 dark:border-purple-700/30 animate-fade-in shadow-sm">
+            <div className="flex items-center gap-2">
+              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-purple-400 to-purple-500 flex items-center justify-center shadow-sm">
+                <span className="text-white font-black text-xs">{user.full_name?.[0] || user.email[0]}</span>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-bold text-sm text-gray-900 dark:text-white truncate">
+                <p className="font-bold text-xs text-gray-900 dark:text-white truncate">
                   {user.full_name || user.email}
                 </p>
-                <p className="text-xs text-purple-600 dark:text-purple-400 capitalize font-bold">
+                <p className="text-[10px] text-purple-500 dark:text-purple-400 capitalize font-semibold">
                   {user.role.replace('_', ' ')}
                 </p>
               </div>
@@ -199,22 +199,22 @@ export function AppSidebar() {
           </div>
         )}
         <div className={cn(
-          "flex gap-2",
+          "flex gap-1.5",
           isCollapsed && "flex-col items-center"
         )}>
           <ThemeToggle />
           <Button
             variant="outline"
-            size={isCollapsed ? "icon" : "default"}
+            size={isCollapsed ? "icon" : "sm"}
             className={cn(
-              "border-2 hover:border-red-300 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all rounded-xl font-bold",
-              isCollapsed ? "w-full" : "flex-1"
+              "border hover:border-red-300 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all rounded-lg font-semibold text-xs",
+              isCollapsed ? "w-full h-9" : "flex-1 h-9"
             )}
             onClick={handleLogout}
             title={isCollapsed ? "Sign Out" : undefined}
           >
-            <LogOut className="h-5 w-5 text-red-600" strokeWidth={2.5} />
-            {!isCollapsed && <span className="ml-2 text-red-600">Sign Out</span>}
+            <LogOut className="h-4 w-4 text-red-500" strokeWidth={2} />
+            {!isCollapsed && <span className="ml-1.5 text-red-600">Sign Out</span>}
           </Button>
         </div>
       </div>
