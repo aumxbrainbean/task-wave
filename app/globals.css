@@ -2,119 +2,107 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
-body {
-    margin: 0;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-        "Helvetica Neue", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-        monospace;
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 @layer base {
   :root {
-        /* Lavender & Mint Color System */
-        --background: 252 100% 99%;
-        --foreground: 260 15% 20%;
-        
-        --card: 0 0% 100%;
-        --card-foreground: 260 15% 20%;
-        
-        --popover: 0 0% 100%;
-        --popover-foreground: 260 15% 20%;
-        
-        /* Primary: Soft Lavender */
-        --primary: 280 45% 70%;
-        --primary-foreground: 0 0% 100%;
-        
-        /* Secondary: Mint Green */
-        --secondary: 160 40% 75%;
-        --secondary-foreground: 160 50% 20%;
-        
-        --muted: 252 30% 96%;
-        --muted-foreground: 260 10% 50%;
-        
-        --accent: 280 60% 92%;
-        --accent-foreground: 280 50% 30%;
-        
-        --destructive: 0 70% 65%;
-        --destructive-foreground: 0 0% 100%;
-        
-        --border: 252 25% 92%;
-        --input: 252 25% 94%;
-        --ring: 280 45% 70%;
-        
-        /* Chart Colors - Pastel Rainbow */
-        --chart-1: 280 45% 70%; /* Lavender */
-        --chart-2: 160 40% 70%; /* Mint */
-        --chart-3: 45 85% 75%;  /* Soft Yellow */
-        --chart-4: 15 75% 75%;  /* Coral */
-        --chart-5: 200 60% 75%; /* Sky Blue */
-        
-        --radius: 0.75rem;
-        
-        /* Sidebar Colors - Lavender Tint */
-        --sidebar-background: 252 60% 98%;
-        --sidebar-foreground: 260 15% 25%;
-        --sidebar-primary: 280 45% 70%;
-        --sidebar-primary-foreground: 0 0% 100%;
-        --sidebar-accent: 280 50% 95%;
-        --sidebar-accent-foreground: 280 50% 30%;
-        --sidebar-border: 252 30% 90%;
-        --sidebar-ring: 280 45% 70%;
-    }
+    /* Lavender & Mint Modern Palette */
+    --background: 248 100% 98%;
+    --foreground: 260 20% 15%;
     
+    --card: 0 0% 100%;
+    --card-foreground: 260 20% 15%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 260 20% 15%;
+    
+    /* Primary Lavender */
+    --primary: 270 60% 65%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Secondary Mint */
+    --secondary: 165 50% 65%;
+    --secondary-foreground: 165 70% 15%;
+    
+    /* Accent Colors */
+    --accent: 280 70% 88%;
+    --accent-foreground: 280 60% 25%;
+    
+    --muted: 252 40% 96%;
+    --muted-foreground: 260 15% 45%;
+    
+    --destructive: 0 75% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --success: 160 60% 55%;
+    --success-foreground: 0 0% 100%;
+    
+    --warning: 45 95% 60%;
+    --warning-foreground: 45 100% 15%;
+    
+    --info: 210 80% 60%;
+    --info-foreground: 0 0% 100%;
+    
+    --border: 252 30% 88%;
+    --input: 252 30% 92%;
+    --ring: 270 60% 65%;
+    
+    --radius: 12px;
+    
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 260 20% 20%;
+    --sidebar-border: 252 25% 92%;
+  }
+  
   .dark {
-        --background: 260 30% 8%;
-        --foreground: 252 20% 95%;
-        
-        --card: 260 25% 10%;
-        --card-foreground: 252 20% 95%;
-        
-        --popover: 260 25% 10%;
-        --popover-foreground: 252 20% 95%;
-        
-        --primary: 280 45% 65%;
-        --primary-foreground: 0 0% 100%;
-        
-        --secondary: 160 35% 45%;
-        --secondary-foreground: 0 0% 100%;
-        
-        --muted: 260 25% 15%;
-        --muted-foreground: 252 10% 60%;
-        
-        --accent: 280 40% 20%;
-        --accent-foreground: 280 45% 85%;
-        
-        --destructive: 0 60% 50%;
-        --destructive-foreground: 0 0% 100%;
-        
-        --border: 260 20% 18%;
-        --input: 260 20% 18%;
-        --ring: 280 45% 65%;
-        
-        --chart-1: 280 45% 65%;
-        --chart-2: 160 40% 55%;
-        --chart-3: 45 80% 65%;
-        --chart-4: 15 70% 65%;
-        --chart-5: 200 55% 65%;
-        
-        --sidebar-background: 260 30% 10%;
-        --sidebar-foreground: 252 20% 90%;
-        --sidebar-primary: 280 45% 65%;
-        --sidebar-primary-foreground: 0 0% 100%;
-        --sidebar-accent: 260 25% 18%;
-        --sidebar-accent-foreground: 280 45% 85%;
-        --sidebar-border: 260 20% 18%;
-        --sidebar-ring: 280 45% 65%;
-    }
+    --background: 260 35% 6%;
+    --foreground: 252 25% 95%;
+    
+    --card: 260 30% 8%;
+    --card-foreground: 252 25% 95%;
+    
+    --popover: 260 30% 8%;
+    --popover-foreground: 252 25% 95%;
+    
+    --primary: 270 60% 60%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 165 45% 50%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --accent: 280 50% 18%;
+    --accent-foreground: 280 60% 85%;
+    
+    --muted: 260 30% 12%;
+    --muted-foreground: 252 15% 55%;
+    
+    --destructive: 0 70% 55%;
+    --success: 160 55% 50%;
+    --warning: 45 90% 55%;
+    --info: 210 75% 55%;
+    
+    --border: 260 25% 16%;
+    --input: 260 25% 16%;
+    --ring: 270 60% 60%;
+    
+    --sidebar-background: 260 30% 8%;
+    --sidebar-foreground: 252 25% 90%;
+    --sidebar-border: 260 25% 16%;
+  }
 }
 
 @layer base {
@@ -124,57 +112,37 @@ code {
   
   body {
     @apply bg-background text-foreground;
-    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
-  /* Smooth scrollbar */
-  *::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+  /* Modern Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
   }
-
-  *::-webkit-scrollbar-track {
-    background: hsl(var(--muted) / 0.3);
-    border-radius: 3px;
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
   }
-
-  *::-webkit-scrollbar-thumb {
-    background: hsl(var(--primary) / 0.3);
-    border-radius: 3px;
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.2);
+    border-radius: 10px;
     transition: background 0.2s;
   }
-
-  *::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--primary) / 0.5);
-  }
-
-  /* Firefox */
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: hsl(var(--primary) / 0.3) hsl(var(--muted) / 0.3);
-  }
   
-  .dark *::-webkit-scrollbar-thumb {
+  ::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--primary) / 0.4);
   }
   
-  .dark *::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--primary) / 0.6);
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--primary) / 0.2) transparent;
   }
 }
 
 @layer utilities {
-  /* Smooth Transitions */
-  .transition-smooth {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  .transition-colors-smooth {
-    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
-  }
-  
-  /* Subtle Animations */
+  /* Smooth Animations */
   .animate-fade-in {
     animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -182,7 +150,7 @@ code {
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(8px);
+      transform: translateY(10px);
     }
     to {
       opacity: 1;
@@ -191,13 +159,13 @@ code {
   }
   
   .animate-slide-in {
-    animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   @keyframes slideIn {
     from {
       opacity: 0;
-      transform: translateX(-12px);
+      transform: translateX(-16px);
     }
     to {
       opacity: 1;
@@ -206,13 +174,13 @@ code {
   }
   
   .animate-scale-in {
-    animation: scaleIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: scaleIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   @keyframes scaleIn {
     from {
       opacity: 0;
-      transform: scale(0.95);
+      transform: scale(0.9);
     }
     to {
       opacity: 1;
@@ -220,89 +188,101 @@ code {
     }
   }
   
-  /* Gradient Backgrounds */
-  .bg-gradient-lavender {
-    background: linear-gradient(135deg, hsl(280 60% 96%) 0%, hsl(260 50% 98%) 100%);
+  /* Modern Gradients */
+  .gradient-lavender {
+    background: linear-gradient(135deg, hsl(270 70% 95%) 0%, hsl(260 60% 98%) 100%);
   }
   
-  .bg-gradient-mint {
-    background: linear-gradient(135deg, hsl(160 50% 96%) 0%, hsl(170 45% 98%) 100%);
+  .gradient-mint {
+    background: linear-gradient(135deg, hsl(165 60% 95%) 0%, hsl(175 55% 98%) 100%);
   }
   
-  .bg-gradient-pastel {
+  .gradient-pastel {
     background: linear-gradient(135deg, 
-      hsl(280 60% 97%) 0%, 
-      hsl(200 60% 97%) 50%, 
-      hsl(160 50% 97%) 100%);
+      hsl(270 70% 97%) 0%,
+      hsl(200 70% 97%) 50%,
+      hsl(165 60% 97%) 100%);
+  }
+  
+  .gradient-vibrant {
+    background: linear-gradient(135deg,
+      hsl(270 70% 60%) 0%,
+      hsl(280 65% 65%) 100%);
   }
   
   /* Icon Colors */
   .icon-lavender {
-    color: hsl(280 45% 60%);
+    color: hsl(270 60% 55%);
   }
   
   .icon-mint {
-    color: hsl(160 40% 50%);
+    color: hsl(165 50% 45%);
   }
   
   .icon-coral {
-    color: hsl(15 75% 65%);
+    color: hsl(15 80% 60%);
   }
   
   .icon-sky {
-    color: hsl(200 60% 65%);
+    color: hsl(210 75% 55%);
   }
   
   .icon-yellow {
-    color: hsl(45 85% 65%);
+    color: hsl(45 90% 55%);
   }
   
-  /* Glassmorphism */
+  /* Glass Effect */
   .glass {
-    background: hsl(var(--card) / 0.8);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: hsl(var(--card) / 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
   }
   
-  /* Hover Effects */
-  .hover-lift {
+  /* Card Hover */
+  .card-hover {
     transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
                 box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
-  .hover-lift:hover {
+  .card-hover:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px hsl(var(--primary) / 0.15);
+    box-shadow: 0 8px 24px hsl(var(--primary) / 0.12);
   }
   
-  /* Thin scrollbar utility */
-  .thin-scrollbar::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+  /* Button Animations */
+  .btn-scale {
+    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
-  .thin-scrollbar::-webkit-scrollbar-thumb {
-    background: hsl(var(--primary) / 0.2);
+  .btn-scale:active {
+    transform: scale(0.96);
   }
 }
 
-/* Custom Component Styles */
+/* Component Styles */
 @layer components {
-  .card-modern {
-    @apply bg-card border border-border rounded-xl shadow-sm;
-    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  .modern-card {
+    @apply bg-card border border-border rounded-2xl shadow-sm;
+    transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
-  .card-modern:hover {
-    box-shadow: 0 4px 16px hsl(var(--primary) / 0.08);
+  .modern-card:hover {
+    box-shadow: 0 8px 24px hsl(var(--primary) / 0.12);
   }
   
-  .button-modern {
-    @apply transition-colors-smooth rounded-lg font-medium;
+  .modern-button {
+    @apply rounded-xl font-semibold transition-all duration-200;
+    @apply hover:scale-105 active:scale-95;
   }
   
-  .input-modern {
-    @apply bg-background border-border rounded-lg transition-colors-smooth;
-    @apply focus:border-primary focus:ring-2 focus:ring-primary/20;
+  .modern-input {
+    @apply bg-background border-2 border-border rounded-xl;
+    @apply focus:border-primary focus:ring-4 focus:ring-primary/10;
+    @apply transition-all duration-200;
+  }
+  
+  .status-badge {
+    @apply px-3 py-1 rounded-full text-xs font-semibold;
+    @apply inline-flex items-center gap-1.5;
   }
 }
