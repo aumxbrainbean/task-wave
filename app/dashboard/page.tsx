@@ -72,22 +72,22 @@ const formatDateForDB = (date: Date | undefined): string | undefined => {
 
 const getStatusColor = (status: TaskStatus) => {
   switch (status) {
-    case 'Yet To Start': return 'bg-purple-50/50 dark:bg-purple-950/20 border-l-4 border-purple-300 dark:border-purple-700'
-    case 'In Progress': return 'bg-blue-50/50 dark:bg-blue-950/20 border-l-4 border-blue-300 dark:border-blue-700'
-    case 'On Hold': return 'bg-orange-50/50 dark:bg-orange-950/20 border-l-4 border-orange-300 dark:border-orange-700'
-    case 'Client Review Pending': return 'bg-cyan-50/50 dark:bg-cyan-950/20 border-l-4 border-cyan-300 dark:border-cyan-700'
-    case 'Completed': return 'bg-emerald-50/50 dark:bg-emerald-950/20 border-l-4 border-emerald-300 dark:border-emerald-700'
+    case 'Yet To Start': return 'bg-gradient-to-r from-purple-50 to-purple-100/50 dark:from-purple-950/30 dark:to-purple-900/20 border-l-[6px] border-purple-400'
+    case 'In Progress': return 'bg-gradient-to-r from-sky-50 to-blue-100/50 dark:from-sky-950/30 dark:to-blue-900/20 border-l-[6px] border-sky-400'
+    case 'On Hold': return 'bg-gradient-to-r from-orange-50 to-amber-100/50 dark:from-orange-950/30 dark:to-amber-900/20 border-l-[6px] border-orange-400'
+    case 'Client Review Pending': return 'bg-gradient-to-r from-cyan-50 to-teal-100/50 dark:from-cyan-950/30 dark:to-teal-900/20 border-l-[6px] border-cyan-400'
+    case 'Completed': return 'bg-gradient-to-r from-emerald-50 to-green-100/50 dark:from-emerald-950/30 dark:to-green-900/20 border-l-[6px] border-emerald-400'
     default: return 'bg-white dark:bg-gray-950'
   }
 }
 
 const getPriorityColor = (priority: Priority | null) => {
   switch (priority) {
-    case 'Critical': return 'bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-sm'
-    case 'High': return 'bg-gradient-to-r from-orange-400 to-orange-500 text-white shadow-sm'
-    case 'Medium': return 'bg-gradient-to-r from-amber-400 to-yellow-400 text-white shadow-sm'
-    case 'Low': return 'bg-gradient-to-r from-emerald-400 to-teal-400 text-white shadow-sm'
-    default: return 'bg-gray-400 text-white'
+    case 'Critical': return 'status-badge bg-gradient-to-r from-red-500 to-rose-500 text-white shadow-lg shadow-red-500/30'
+    case 'High': return 'status-badge bg-gradient-to-r from-orange-400 to-amber-500 text-white shadow-lg shadow-orange-400/30'
+    case 'Medium': return 'status-badge bg-gradient-to-r from-yellow-400 to-amber-400 text-gray-900 shadow-lg shadow-yellow-400/30'
+    case 'Low': return 'status-badge bg-gradient-to-r from-emerald-400 to-teal-500 text-white shadow-lg shadow-emerald-400/30'
+    default: return 'status-badge bg-gray-400 text-white'
   }
 }
 
