@@ -825,18 +825,18 @@ export default function DashboardPage() {
               <p className="text-xs text-gray-500">Getting everything ready</p>
             </div>
           ) : (
-            <div className="modern-card border border-gray-200 shadow-lg h-full flex flex-col overflow-hidden bg-white">
+            <div className="modern-card border border-gray-200 dark:border-gray-700 shadow-lg h-full flex flex-col overflow-hidden bg-white dark:bg-gray-800">
               {/* Table Container */}
               <div className="flex-1 overflow-auto" data-testid="tasks-table" style={{scrollbarGutter: 'stable'}}>
                 <table className="w-full border-collapse min-w-max">
                   {/* Compact Headers */}
-                  <thead className="sticky top-0 z-10 backdrop-blur-xl bg-gradient-to-r from-gray-50 to-purple-50/50 border-b-2 border-gray-200">
+                  <thead className="sticky top-0 z-10 backdrop-blur-xl bg-gradient-to-r from-gray-50 to-purple-50/50 dark:from-gray-800 dark:to-purple-900/20 border-b-2 border-gray-200 dark:border-gray-700">
                     {table.getHeaderGroups().map(headerGroup => (
                       <tr key={headerGroup.id}>
                         {headerGroup.headers.map(header => (
                           <th 
                             key={header.id} 
-                            className="px-3 py-2.5 text-left text-[10px] font-black uppercase tracking-wider text-gray-700 whitespace-nowrap"
+                            className="px-3 py-2.5 text-left text-[10px] font-black uppercase tracking-wider text-gray-700 dark:text-gray-300 whitespace-nowrap"
                             style={{ 
                               width: header.column.columnDef.size,
                               minWidth: header.column.columnDef.minSize,
