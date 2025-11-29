@@ -439,16 +439,16 @@ export default function DashboardPage() {
     },
     {
       accessorKey: 'assigned_date',
-      header: 'Assigned Date',
+      header: 'Assigned',
       cell: ({ row }) => (
         <Popover>
           <PopoverTrigger asChild>
             <Button 
               variant="ghost" 
-              className="w-full justify-start text-left font-normal border-0"
+              className="w-full justify-start text-left font-normal border-0 text-xs h-8 px-2"
               data-testid={`assigned-date-${row.original.id}`}
             >
-              {row.original.assigned_date ? format(new Date(row.original.assigned_date), 'EEEE, MMMM d, yyyy') : 'Pick date'}
+              {row.original.assigned_date ? format(new Date(row.original.assigned_date), 'MMM d, yyyy') : 'Set date'}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0">
@@ -460,7 +460,7 @@ export default function DashboardPage() {
           </PopoverContent>
         </Popover>
       ),
-      size: 200,
+      size: 120,
     },
     {
       accessorKey: 'eta_date',
@@ -470,10 +470,10 @@ export default function DashboardPage() {
           <PopoverTrigger asChild>
             <Button 
               variant="ghost" 
-              className="w-full justify-start text-left font-normal border-0"
+              className="w-full justify-start text-left font-normal border-0 text-xs h-8 px-2"
               data-testid={`eta-date-${row.original.id}`}
             >
-              {row.original.eta_date ? format(new Date(row.original.eta_date), 'EEEE, MMMM d, yyyy') : 'Pick date'}
+              {row.original.eta_date ? format(new Date(row.original.eta_date), 'MMM d, yyyy') : 'Set date'}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0">
@@ -485,7 +485,7 @@ export default function DashboardPage() {
           </PopoverContent>
         </Popover>
       ),
-      size: 200,
+      size: 120,
     },
     {
       accessorKey: 'department_ids',
