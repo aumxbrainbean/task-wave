@@ -814,29 +814,29 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Modern Task Table */}
-        <div className="flex-1 overflow-hidden px-8 py-6 min-h-0">
+        {/* Compact Task Table */}
+        <div className="flex-1 overflow-hidden px-6 py-4 min-h-0">
           {loading ? (
-            <div className="flex flex-col items-center justify-center h-full space-y-4 animate-fade-in">
-              <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-2xl">
-                <Loader2 className="h-10 w-10 animate-spin text-white" strokeWidth={3} />
+            <div className="flex flex-col items-center justify-center h-full space-y-3 animate-fade-in">
+              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-purple-400 to-purple-500 flex items-center justify-center shadow-lg">
+                <Loader2 className="h-8 w-8 animate-spin text-white" strokeWidth={2.5} />
               </div>
-              <p className="text-lg font-bold text-gray-700">Loading your tasks...</p>
-              <p className="text-sm text-gray-500">Hang tight, we're getting everything ready</p>
+              <p className="text-base font-bold text-gray-700">Loading tasks...</p>
+              <p className="text-xs text-gray-500">Getting everything ready</p>
             </div>
           ) : (
-            <div className="modern-card border-2 border-white/80 shadow-2xl h-full flex flex-col overflow-hidden backdrop-blur-sm bg-white/90">
+            <div className="modern-card border border-gray-200 shadow-lg h-full flex flex-col overflow-hidden bg-white">
               {/* Table Container */}
               <div className="flex-1 overflow-auto" data-testid="tasks-table" style={{scrollbarGutter: 'stable'}}>
                 <table className="w-full border-collapse min-w-max">
-                  {/* Modern Headers */}
-                  <thead className="sticky top-0 z-10 backdrop-blur-xl bg-gradient-to-r from-purple-100/90 via-purple-50/90 to-white/90 shadow-sm">
+                  {/* Compact Headers */}
+                  <thead className="sticky top-0 z-10 backdrop-blur-xl bg-gradient-to-r from-gray-50 to-purple-50/50 border-b-2 border-gray-200">
                     {table.getHeaderGroups().map(headerGroup => (
-                      <tr key={headerGroup.id} className="border-b-2 border-purple-200/60">
+                      <tr key={headerGroup.id}>
                         {headerGroup.headers.map(header => (
                           <th 
                             key={header.id} 
-                            className="px-4 py-4 text-left text-xs font-black uppercase tracking-wider text-gray-900 whitespace-nowrap"
+                            className="px-3 py-2.5 text-left text-[10px] font-black uppercase tracking-wider text-gray-700 whitespace-nowrap"
                             style={{ 
                               width: header.column.columnDef.size,
                               minWidth: header.column.columnDef.minSize,
@@ -849,23 +849,23 @@ export default function DashboardPage() {
                       </tr>
                     ))}
                   </thead>
-                  {/* Modern Rows */}
+                  {/* Compact Rows */}
                   <tbody>
                     {table.getRowModel().rows.map((row, index) => (
                       <tr 
                         key={row.id}
                         className={cn(
-                          'group border-b border-gray-100 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 cursor-pointer',
+                          'group border-b border-gray-100 hover:shadow-md transition-all duration-200',
                           getStatusColor(row.original.status),
                           'animate-fade-in'
                         )}
-                        style={{animationDelay: `${index * 30}ms`}}
+                        style={{animationDelay: `${index * 20}ms`}}
                         data-testid={`task-row-${row.original.id}`}
                       >
                         {row.getVisibleCells().map(cell => (
                           <td 
                             key={cell.id} 
-                            className="px-4 py-4"
+                            className="px-3 py-2 text-sm"
                             style={{ 
                               width: cell.column.columnDef.size,
                               minWidth: cell.column.columnDef.minSize,
