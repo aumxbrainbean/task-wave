@@ -664,7 +664,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="h-screen flex gradient-pastel overflow-hidden">
+    <div className="h-screen flex bg-gradient-pastel overflow-hidden">
       <AppSidebar />
 
       {/* Main Content - Fixed height container */}
