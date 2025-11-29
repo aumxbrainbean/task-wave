@@ -131,8 +131,8 @@ export function AppSidebar() {
         )}
       </div>
 
-      {/* Modern Navigation */}
-      <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+      {/* Compact Navigation */}
+      <nav className="flex-1 p-3 space-y-1.5 overflow-y-auto">
         {navItems.map((item, index) => {
           const Icon = item.icon
           const isActive = pathname === item.href
@@ -142,15 +142,15 @@ export function AppSidebar() {
               variant="ghost"
               className={cn(
                 'w-full transition-all duration-200 group animate-slide-in',
-                isCollapsed ? 'justify-center px-0 h-14' : 'justify-start h-14 px-4',
+                isCollapsed ? 'justify-center px-0 h-11' : 'justify-start h-11 px-3',
                 isActive
-                  ? `${item.activeBg} text-white shadow-xl hover:shadow-2xl font-bold scale-105`
-                  : `text-gray-700 dark:text-gray-300 ${item.bgHover} hover:scale-105 font-semibold border-2 border-transparent hover:border-gray-200 dark:hover:border-gray-700`,
-                'rounded-2xl'
+                  ? `${item.activeBg} text-white shadow-md font-semibold`
+                  : `text-gray-700 dark:text-gray-300 ${item.bgHover} font-medium border border-transparent hover:border-gray-200 dark:hover:border-gray-700`,
+                'rounded-xl'
               )}
               onClick={() => router.push(item.href)}
               title={isCollapsed ? item.label : undefined}
-              style={{animationDelay: `${index * 50}ms`}}
+              style={{animationDelay: `${index * 30}ms`}}
             >
               <div className={cn(
                 "flex items-center",
@@ -158,19 +158,18 @@ export function AppSidebar() {
               )}>
                 <div className={cn(
                   "flex items-center justify-center",
-                  !isCollapsed && "mr-3"
+                  !isCollapsed && "mr-2.5"
                 )}>
                   <Icon 
                     className={cn(
-                      "h-6 w-6 transition-all duration-200",
-                      isActive ? 'text-white scale-110' : item.iconColor,
-                      'group-hover:scale-110'
+                      "h-5 w-5 transition-all duration-200",
+                      isActive ? 'text-white' : item.iconColor
                     )} 
-                    strokeWidth={isActive ? 3 : 2.5}
+                    strokeWidth={isActive ? 2.5 : 2}
                   />
                 </div>
                 {!isCollapsed && (
-                  <span className="text-base">{item.label}</span>
+                  <span className="text-sm">{item.label}</span>
                 )}
               </div>
             </Button>
