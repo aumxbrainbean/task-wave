@@ -1,0 +1,494 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useAuthStore } from '@/lib/stores/authStore'
+import { supabase } from '@/lib/supabase/client'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Loader2, Plus, Pencil, Trash2, ArrowLeft, Users, FolderKanban, Sparkles } from 'lucide-react'
+import { Textarea } from '@/components/ui/textarea'
+import { AppSidebar } from '@/components/app-sidebar'
+import type { Project, Stakeholder } from '@/types'
+
+export default function ProjectsPage() {
+  const router = useRouter()
+  const { user, fetchUser } = useAuthStore()
+  const [projects, setProjects] = useState<Project[]>([])
+  const [stakeholders, setStakeholders] = useState<Stakeholder[]>([])
+  const [pms, setPMs] = useState<any[]>([])
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [stakeholderDialogOpen, setStakeholderDialogOpen] = useState(false)
+  const [editingProject, setEditingProject] = useState<Project | null>(null)
+  const [editingStakeholder, setEditingStakeholder] = useState<Stakeholder | null>(null)
+  
+  const [formData, setFormData] = useState({ name: '', description: '' })
+  const [stakeholderForm, setStakeholderForm] = useState({
+    name: '', email: '', phone: '', designation: ''
+  })
+
+  useEffect(() => {
+    const init = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session) {
+        router.push('/auth/login')
+        return
+      }
+      await fetchUser()
+      await fetchPMs()
+      await fetchProjects()
+    }
+    init()
+  }, [router])
+
+  const fetchPMs = async () => {
+    const { data, error } = await supabase
+      .from('user_profiles')
+      .select('id, email, full_name')
+      .order('full_name', { ascending: true })
+    
+    if (!error && data) setPMs(data)
+  }
+
+  const fetchProjects = async () => {
+    setLoading(true)
+    const { data, error } = await supabase
+      .from('tms_projects')
+      .select(`
+        *,
+        assigned_pm:user_profiles!assigned_pm_id(id, email, full_name)
+      `)
+      .order('created_at', { ascending: false })
+    
+    if (!error && data) setProjects(data)
+    setLoading(false)
+  }
+
+  const handleAssignPM = async (projectId: string, pmId: string | null) => {
+    // Find the project to check current assignment
+    const project = projects.find(p => p.id === projectId)
+    
+    // If PM role: can only assign themselves to unassigned projects or unassign their own projects
+    if (user?.role === 'project_manager') {
+      if (project?.assigned_pm_id && project.assigned_pm_id !== user.id) {
+        alert('You cannot unassign projects assigned to other PMs')
+        return
+      }
+      if (pmId && pmId !== user.id) {
+        alert('You can only assign projects to yourself')
+        return
+      }
+    }
+    
+    const { error } = await supabase
+      .from('tms_projects')
+      .update({ assigned_pm_id: pmId })
+      .eq('id', projectId)
+    
+    if (!error) await fetchProjects()
+  }
+
+  const fetchStakeholders = async (projectId: string) => {
+    const { data, error } = await supabase
+      .from('tms_stakeholders')
+      .select('*')
+      .eq('project_id', projectId)
+      .order('name')
+    
+    if (!error && data) setStakeholders(data)
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (editingProject) {
+      // Update existing project
+      const { error } = await supabase
+        .from('tms_projects')
+        .update(formData)
+        .eq('id', editingProject.id)
+      
+      if (!error) {
+        setDialogOpen(false)
+        setFormData({ name: '', description: '' })
+        setEditingProject(null)
+        await fetchProjects()
+      }
+    } else {
+      // Create new project
+      const { error } = await supabase
+        .from('tms_projects')
+        .insert([{ ...formData, created_by: user?.id }])
+      
+      if (!error) {
+        setDialogOpen(false)
+        setFormData({ name: '', description: '' })
+        await fetchProjects()
+      }
+    }
+  }
+
+  const handleEdit = (project: Project) => {
+    setEditingProject(project)
+    setFormData({ name: project.name, description: project.description || '' })
+    setDialogOpen(true)
+  }
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('Delete this project? All tasks will be deleted.')) return
+    
+    const { error } = await supabase
+      .from('tms_projects')
+      .delete()
+      .eq('id', id)
+    
+    if (!error) await fetchProjects()
+  }
+
+  const handleAddStakeholder = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!selectedProject) return
+    
+    if (editingStakeholder) {
+      // Update existing stakeholder
+      const { error } = await supabase
+        .from('tms_stakeholders')
+        .update(stakeholderForm)
+        .eq('id', editingStakeholder.id)
+      
+      if (!error) {
+        setStakeholderDialogOpen(false)
+        setStakeholderForm({ name: '', email: '', phone: '', designation: '' })
+        setEditingStakeholder(null)
+        await fetchStakeholders(selectedProject.id)
+      }
+    } else {
+      // Create new stakeholder
+      const { error } = await supabase
+        .from('tms_stakeholders')
+        .insert([{ ...stakeholderForm, project_id: selectedProject.id }])
+      
+      if (!error) {
+        setStakeholderDialogOpen(false)
+        setStakeholderForm({ name: '', email: '', phone: '', designation: '' })
+        await fetchStakeholders(selectedProject.id)
+      }
+    }
+  }
+
+  const handleEditStakeholder = (stakeholder: Stakeholder) => {
+    setEditingStakeholder(stakeholder)
+    setStakeholderForm({
+      name: stakeholder.name,
+      email: stakeholder.email || '',
+      phone: stakeholder.phone || '',
+      designation: stakeholder.designation || ''
+    })
+    setStakeholderDialogOpen(true)
+  }
+
+  const handleDeleteStakeholder = async (id: string) => {
+    const { error } = await supabase
+      .from('tms_stakeholders')
+      .delete()
+      .eq('id', id)
+    
+    if (!error && selectedProject) {
+      await fetchStakeholders(selectedProject.id)
+    }
+  }
+
+  const handleViewStakeholders = (project: Project) => {
+    setSelectedProject(project)
+    fetchStakeholders(project.id)
+  }
+
+  if (!user) return null
+
+  const canManage = user.role === 'admin' || user.role === 'project_manager'
+
+  return (
+    <div className="h-screen flex bg-gradient-pastel">
+      <AppSidebar />
+      <main className="flex-1 overflow-auto w-full p-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-center justify-between mb-8 animate-fade-in">
+          <div className="flex items-center gap-4">
+            <Button 
+              variant="outline" 
+              size="icon" 
+              onClick={() => router.push('/dashboard')}
+              className="hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:border-purple-300 transition-colors rounded-lg"
+            >
+              <ArrowLeft className="h-5 w-5 icon-lavender" />
+            </Button>
+            <div className="flex items-center gap-3">
+              <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center shadow-md">
+                <FolderKanban className="h-6 w-6 text-white" strokeWidth={2.5} />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-sky-600 via-blue-600 to-blue-500 bg-clip-text text-transparent">Projects</h1>
+                <p className="text-muted-foreground font-medium">Manage projects and stakeholders</p>
+              </div>
+            </div>
+          </div>
+          {canManage && (
+            <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+              <DialogTrigger asChild>
+                <Button className="bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white shadow-md hover:shadow-lg transition-all">
+                  <Plus className="mr-2 h-4 w-4" />
+                  New Project
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>{editingProject ? 'Edit Project' : 'Create New Project'}</DialogTitle>
+                  <DialogDescription>{editingProject ? 'Update project details' : 'Add a new project to manage tasks'}</DialogDescription>
+                </DialogHeader>
+                <form onSubmit={handleSubmit}>
+                  <div className="space-y-4 py-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Project Name</Label>
+                      <Input
+                        id="name"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="description">Description</Label>
+                      <Textarea
+                        id="description"
+                        value={formData.description}
+                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                        rows={3}
+                      />
+                    </div>
+                  </div>
+                  <DialogFooter>
+                    <Button type="submit">{editingProject ? 'Update Project' : 'Create Project'}</Button>
+                  </DialogFooter>
+                </form>
+              </DialogContent>
+            </Dialog>
+          )}
+        </div>
+
+        {selectedProject ? (
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle>{selectedProject.name} - Stakeholders</CardTitle>
+                  <CardDescription>Manage project stakeholders</CardDescription>
+                </div>
+                <div className="flex gap-2">
+                  {canManage && (
+                    <Dialog open={stakeholderDialogOpen} onOpenChange={setStakeholderDialogOpen}>
+                      <DialogTrigger asChild>
+                        <Button size="sm">
+                          <Plus className="mr-2 h-4 w-4" />
+                          Add Stakeholder
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>{editingStakeholder ? 'Edit Stakeholder' : 'Add Stakeholder'}</DialogTitle>
+                        </DialogHeader>
+                        <form onSubmit={handleAddStakeholder}>
+                          <div className="space-y-4 py-4">
+                            <div className="space-y-2">
+                              <Label htmlFor="sh-name">Name</Label>
+                              <Input
+                                id="sh-name"
+                                value={stakeholderForm.name}
+                                onChange={(e) => setStakeholderForm({ ...stakeholderForm, name: e.target.value })}
+                                required
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <Label htmlFor="sh-email">Email</Label>
+                              <Input
+                                id="sh-email"
+                                type="email"
+                                value={stakeholderForm.email}
+                                onChange={(e) => setStakeholderForm({ ...stakeholderForm, email: e.target.value })}
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <Label htmlFor="sh-phone">Phone</Label>
+                              <Input
+                                id="sh-phone"
+                                value={stakeholderForm.phone}
+                                onChange={(e) => setStakeholderForm({ ...stakeholderForm, phone: e.target.value })}
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <Label htmlFor="sh-designation">Designation</Label>
+                              <Input
+                                id="sh-designation"
+                                value={stakeholderForm.designation}
+                                onChange={(e) => setStakeholderForm({ ...stakeholderForm, designation: e.target.value })}
+                              />
+                            </div>
+                          </div>
+                          <DialogFooter>
+                            <Button type="submit">{editingStakeholder ? 'Update Stakeholder' : 'Add Stakeholder'}</Button>
+                          </DialogFooter>
+                        </form>
+                      </DialogContent>
+                    </Dialog>
+                  )}
+                  <Button variant="outline" onClick={() => setSelectedProject(null)}>Back</Button>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Email</TableHead>
+                    <TableHead>Phone</TableHead>
+                    <TableHead>Designation</TableHead>
+                    {canManage && <TableHead className="text-right">Actions</TableHead>}
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {stakeholders.map(sh => (
+                    <TableRow key={sh.id}>
+                      <TableCell className="font-medium">{sh.name}</TableCell>
+                      <TableCell>{sh.email || '-'}</TableCell>
+                      <TableCell>{sh.phone || '-'}</TableCell>
+                      <TableCell>{sh.designation || '-'}</TableCell>
+                      {canManage && (
+                        <TableCell className="text-right">
+                          <div className="flex gap-2 justify-end">
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => handleEditStakeholder(sh)}
+                            >
+                              <Pencil className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => handleDeleteStakeholder(sh.id)}
+                            >
+                              <Trash2 className="h-4 w-4 text-destructive" />
+                            </Button>
+                          </div>
+                        </TableCell>
+                      )}
+                    </TableRow>
+                  ))}
+                  {stakeholders.length === 0 && (
+                    <TableRow>
+                      <TableCell colSpan={canManage ? 5 : 4} className="text-center text-muted-foreground">
+                        No stakeholders yet
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="grid gap-4">
+            {loading ? (
+              <div className="flex items-center justify-center py-12">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              </div>
+            ) : (
+              projects.map(project => (
+                <Card key={project.id}>
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <CardTitle>{project.name}</CardTitle>
+                        <CardDescription>{project.description || 'No description'}</CardDescription>
+                        <div className="mt-3 flex items-center gap-2">
+                          <span className="text-sm text-muted-foreground">Assigned PM:</span>
+                          <Select
+                            value={project.assigned_pm_id || 'unassigned'}
+                            onValueChange={(value) => handleAssignPM(project.id, value === 'unassigned' ? null : value)}
+                            disabled={user?.role === 'project_manager' && project.assigned_pm_id && project.assigned_pm_id !== user.id}
+                          >
+                            <SelectTrigger className="w-48 h-8">
+                              <SelectValue placeholder="Select PM" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {(user?.role === 'admin' || !project.assigned_pm_id) && (
+                                <SelectItem value="unassigned">Unassigned</SelectItem>
+                              )}
+                              {user?.role === 'admin' ? (
+                                pms.map(pm => (
+                                  <SelectItem key={pm.id} value={pm.id}>
+                                    {pm.full_name || pm.email}
+                                  </SelectItem>
+                                ))
+                              ) : (
+                                <SelectItem value={user?.id || ''}>
+                                  {user?.full_name || user?.email || 'Me'}
+                                </SelectItem>
+                              )}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleViewStakeholders(project)}
+                        >
+                          <Users className="mr-2 h-4 w-4" />
+                          Stakeholders
+                        </Button>
+                        {canManage && (
+                          <>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => handleEdit(project)}
+                            >
+                              <Pencil className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => handleDelete(project.id)}
+                            >
+                              <Trash2 className="h-4 w-4 text-destructive" />
+                            </Button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </CardHeader>
+                </Card>
+              ))
+            )}
+            {!loading && projects.length === 0 && (
+              <Card>
+                <CardContent className="py-12 text-center text-muted-foreground">
+                  No projects yet. Create one to get started.
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        )}
+      </div>
+      </main>
+    </div>
+  )
+}

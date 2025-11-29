@@ -1,0 +1,17 @@
+================================================================
+COPY THE CONTENTS OF THIS FILE TO SUPABASE SQL EDITOR
+================================================================
+
+The complete SQL script is in: /app/DATABASE_SETUP.sql
+
+STEPS:
+1. Open file: /app/DATABASE_SETUP.sql
+2. Select ALL content (Ctrl+A)
+3. Copy it (Ctrl+C)
+4. Go to Supabase SQL Editor
+5. Paste the entire content
+6. Click RUN
+
+The file has NO escaped characters and will work perfectly!
+
+================================================================
