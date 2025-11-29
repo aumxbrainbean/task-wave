@@ -855,7 +855,7 @@ export default function DashboardPage() {
                       <tr 
                         key={row.id}
                         className={cn(
-                          'group border-b border-gray-100 hover:shadow-md transition-all duration-200',
+                          'group border-b border-gray-100 dark:border-gray-700 hover:shadow-md transition-all duration-200',
                           getStatusColor(row.original.status),
                           'animate-fade-in'
                         )}
@@ -865,7 +865,7 @@ export default function DashboardPage() {
                         {row.getVisibleCells().map(cell => (
                           <td 
                             key={cell.id} 
-                            className="px-3 py-2 text-sm"
+                            className="px-3 py-2 text-sm text-gray-900 dark:text-gray-100"
                             style={{ 
                               width: cell.column.columnDef.size,
                               minWidth: cell.column.columnDef.minSize,
