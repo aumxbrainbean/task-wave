@@ -700,40 +700,39 @@ export default function DashboardPage() {
           </div>
         </header>
 
-        {/* Modern Toolbar */}
-        <div className="glass border-b border-white/50 flex-shrink-0 z-20 backdrop-blur-2xl shadow-lg">
-          <div className="px-8 py-5">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
+        {/* Compact Toolbar */}
+        <div className="glass border-b border-gray-200/50 flex-shrink-0 z-20 backdrop-blur-xl shadow-sm">
+          <div className="px-6 py-3">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
                 <Button
                   variant="outline"
-                  size="default"
+                  size="sm"
                   onClick={() => setShowFilters(!showFilters)}
-                  className="gap-2 h-11 px-5 rounded-xl border-2 hover:border-purple-300 bg-white/70 hover:bg-purple-50 transition-all font-semibold btn-scale shadow-sm"
+                  className="gap-2 h-9 px-3 rounded-lg border hover:border-purple-300 bg-white hover:bg-purple-50 transition-all font-medium text-xs"
                   data-testid="toggle-filters"
                 >
-                  <SlidersHorizontal className="h-5 w-5 text-purple-600" strokeWidth={2.5} />
-                  <span className="text-gray-900">{showFilters ? 'Hide Filters' : 'Show Filters'}</span>
+                  <SlidersHorizontal className="h-4 w-4 text-purple-500" strokeWidth={2} />
+                  <span className="text-gray-700">{showFilters ? 'Hide Filters' : 'Filters'}</span>
                 </Button>
                 <Button
                   variant="outline"
-                  size="default"
+                  size="sm"
                   onClick={handleExportToExcel}
-                  className="gap-2 h-11 px-5 rounded-xl border-2 hover:border-emerald-300 bg-white/70 hover:bg-emerald-50 transition-all font-semibold btn-scale shadow-sm"
+                  className="gap-2 h-9 px-3 rounded-lg border hover:border-emerald-300 bg-white hover:bg-emerald-50 transition-all font-medium text-xs"
                   data-testid="export-excel-btn"
                 >
-                  <Download className="h-5 w-5 text-emerald-600" strokeWidth={2.5} />
-                  <span className="text-gray-900">Export</span>
+                  <Download className="h-4 w-4 text-emerald-500" strokeWidth={2} />
+                  <span className="text-gray-700">Export</span>
                 </Button>
               </div>
               <Button 
                 onClick={handleAddTask} 
-                className="gap-2 h-12 px-6 modern-button bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:from-purple-600 hover:via-purple-700 hover:to-purple-800 text-white shadow-xl hover:shadow-2xl font-bold text-base" 
+                className="gap-2 h-9 px-4 modern-button bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white shadow-md hover:shadow-lg font-semibold text-xs" 
                 data-testid="add-task-btn"
               >
-                <Plus className="h-5 w-5" strokeWidth={3} />
+                <Plus className="h-4 w-4" strokeWidth={2.5} />
                 <span>New Task</span>
-                <Sparkles className="h-4 w-4 ml-1" />
               </Button>
             </div>
 
