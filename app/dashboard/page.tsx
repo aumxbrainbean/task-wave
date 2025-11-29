@@ -713,7 +713,29 @@ export default function DashboardPage() {
                   data-testid="toggle-filters"
                 >
                   <SlidersHorizontal className="h-5 w-5 text-purple-600" strokeWidth={2.5} />
-                  <span className="text-gray-900\">{showFilters ? 'Hide Filters' : 'Show Filters'}</span>\n                </Button>\n                <Button\n                  variant=\"outline\"\n                  size=\"default\"\n                  onClick={handleExportToExcel}\n                  className=\"gap-2 h-11 px-5 rounded-xl border-2 hover:border-emerald-300 bg-white/70 hover:bg-emerald-50 transition-all font-semibold btn-scale shadow-sm\"\n                  data-testid=\"export-excel-btn\"\n                >\n                  <Download className=\"h-5 w-5 text-emerald-600\" strokeWidth={2.5} />\n                  <span className=\"text-gray-900\">Export</span>\n                </Button>\n              </div>\n              <Button \n                onClick={handleAddTask} \n                className=\"gap-2 h-12 px-6 modern-button bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:from-purple-600 hover:via-purple-700 hover:to-purple-800 text-white shadow-xl hover:shadow-2xl font-bold text-base\" \n                data-testid=\"add-task-btn\"\n              >\n                <Plus className=\"h-5 w-5\" strokeWidth={3} />\n                <span>New Task</span>\n                <Sparkles className=\"h-4 w-4 ml-1\" />\n              </Button>\n            </div>
+                  <span className="text-gray-900">{showFilters ? 'Hide Filters' : 'Show Filters'}</span>
+                </Button>
+                <Button
+                  variant="outline"
+                  size="default"
+                  onClick={handleExportToExcel}
+                  className="gap-2 h-11 px-5 rounded-xl border-2 hover:border-emerald-300 bg-white/70 hover:bg-emerald-50 transition-all font-semibold btn-scale shadow-sm"
+                  data-testid="export-excel-btn"
+                >
+                  <Download className="h-5 w-5 text-emerald-600" strokeWidth={2.5} />
+                  <span className="text-gray-900">Export</span>
+                </Button>
+              </div>
+              <Button 
+                onClick={handleAddTask} 
+                className="gap-2 h-12 px-6 modern-button bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:from-purple-600 hover:via-purple-700 hover:to-purple-800 text-white shadow-xl hover:shadow-2xl font-bold text-base" 
+                data-testid="add-task-btn"
+              >
+                <Plus className="h-5 w-5" strokeWidth={3} />
+                <span>New Task</span>
+                <Sparkles className="h-4 w-4 ml-1" />
+              </Button>
+            </div>
 
             {showFilters && (
               <div className="flex items-center gap-3 flex-wrap animate-fade-in">
