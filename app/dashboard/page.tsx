@@ -886,14 +886,14 @@ export default function DashboardPage() {
 
         {/* Compact Project Tabs */}
         {projects.length > 0 && (
-          <div className="glass border-t border-gray-200/50 px-6 py-2.5 overflow-x-auto backdrop-blur-xl shadow-sm flex-shrink-0 z-20">
+          <div className="glass border-t border-gray-200 dark:border-gray-700 px-6 py-2.5 overflow-x-auto backdrop-blur-xl shadow-sm flex-shrink-0 z-20 bg-white/80 dark:bg-gray-800/80">
             <Tabs value={selectedProjectId || ''} onValueChange={setSelectedProjectId}>
-              <TabsList className="h-auto inline-flex bg-gray-100/50 p-1 rounded-xl">
+              <TabsList className="h-auto inline-flex bg-gray-100 dark:bg-gray-700 p-1 rounded-xl">
                 {projects.map((project, index) => (
                   <TabsTrigger 
                     key={project.id} 
                     value={project.id} 
-                    className="px-4 py-2 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-purple-600 data-[state=active]:text-white data-[state=active]:shadow-md transition-all font-semibold text-xs hover:bg-white/80 animate-slide-in"
+                    className="px-4 py-2 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-purple-600 data-[state=active]:text-white data-[state=active]:shadow-md transition-all font-semibold text-xs text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-600 animate-slide-in"
                     data-testid={`project-tab-${project.id}`}
                     style={{animationDelay: `${index * 30}ms`}}
                   >
