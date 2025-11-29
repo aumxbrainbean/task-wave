@@ -215,35 +215,36 @@ export default function ProjectsPage() {
   const canManage = user.role === 'admin' || user.role === 'project_manager'
 
   return (
-    <div className="h-screen flex bg-gradient-pastel">
+    <div className="h-screen flex bg-gradient-to-br from-purple-50/50 via-white to-emerald-50/30 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
       <AppSidebar />
-      <main className="flex-1 overflow-auto w-full p-8">
+      <main className="flex-1 overflow-auto w-full p-6">
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-8 animate-fade-in">
-          <div className="flex items-center gap-4">
+        {/* Compact Header */}
+        <div className="flex items-center justify-between mb-6 animate-fade-in">
+          <div className="flex items-center gap-3">
             <Button 
               variant="outline" 
               size="icon" 
               onClick={() => router.push('/dashboard')}
-              className="hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:border-purple-300 transition-colors rounded-lg"
+              className="h-9 w-9 rounded-lg border hover:border-sky-300 hover:bg-sky-50 dark:hover:bg-sky-900/20 transition-all"
             >
-              <ArrowLeft className="h-5 w-5 icon-lavender" />
+              <ArrowLeft className="h-4 w-4 text-sky-600 dark:text-sky-400" strokeWidth={2} />
             </Button>
-            <div className="flex items-center gap-3">
-              <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center shadow-md">
-                <FolderKanban className="h-6 w-6 text-white" strokeWidth={2.5} />
+            <div className="flex items-center gap-2.5">
+              <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-sky-400 to-sky-500 flex items-center justify-center shadow-md">
+                <FolderKanban className="h-5 w-5 text-white" strokeWidth={2.5} />
               </div>
               <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-sky-600 via-blue-600 to-blue-500 bg-clip-text text-transparent">Projects</h1>
-                <p className="text-muted-foreground font-medium">Manage projects and stakeholders</p>
+                <h1 className="text-xl font-bold bg-gradient-to-r from-sky-600 to-sky-500 bg-clip-text text-transparent dark:from-sky-400 dark:to-sky-300">Projects</h1>
+                <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">Manage projects and stakeholders</p>
               </div>
             </div>
           </div>
           {canManage && (
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
               <DialogTrigger asChild>
-                <Button className="bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white shadow-md hover:shadow-lg transition-all">
-                  <Plus className="mr-2 h-4 w-4" />
+                <Button className="h-9 px-4 bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 text-white shadow-md hover:shadow-lg transition-all text-sm font-semibold rounded-lg">
+                  <Plus className="mr-1.5 h-4 w-4" strokeWidth={2.5} />
                   New Project
                 </Button>
               </DialogTrigger>
